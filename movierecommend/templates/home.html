@@ -1,0 +1,167 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Movie Recommendation</title>
+        <style>
+            /* Global Styles */
+            *{
+                background-color:'black';
+            }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+
+            h1 {
+                color: #333;
+                text-align: center;
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+
+            /* Form Styles */
+            form {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            form label {
+                font-size: 18px;
+                color: #555;
+                margin-right: 10px;
+            }
+
+            form input[type="text"] {
+                padding: 10px;
+                width: 300px;
+                font-size: 16px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                margin-right: 10px;
+            }
+
+            form button {
+                padding: 10px 20px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+            form button:hover {
+                background-color: #218838;
+            }
+
+            /* Table Styles */
+            table {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                border-collapse: collapse;
+                background-color: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            table thead {
+                background-color: #343a40;
+                color: white;
+            }
+
+            table thead th {
+                padding: 15px;
+                text-align: left;
+            }
+
+            table tbody tr {
+                border-bottom: 1px solid #ddd;
+            }
+
+            table tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            table tbody td {
+                padding: 15px;
+                text-align: left;
+            }
+
+            table tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                body {
+                    background-color:'red';
+                    padding: 20px;
+                }
+
+                form input[type="text"] {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                form button {
+                    width: 100%;
+                    padding: 10px;
+                }
+
+                table {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Movie Recommendation System</h1>
+
+            <!-- Form for submitting movie name -->
+            <form method="post">
+                {% csrf_token %}
+                <label>Enter Movie Name:</label>
+                <input type="text" name="movie name" placeholder="Type a movie name" />
+                <button type="submit">Submit</button>
+            </form>
+
+            
+            {% if movie_data %}
+            <h2>Recommended Movies:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Rating</th>
+                        <th>Runtime (min)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t, r, tm in movie_data %}
+                    <tr>
+                        <td>{{ t }}</td>
+                        <td>{{ r }}</td>
+                        <td>{{ tm }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </body>
+</html>
